@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bw.mapper.MyMapper">
+	<select id="list" resultType="com.bw.entity.Goodskind">
+		select id,name from tb_goods 
+		<if test="mohu!=null and mohu!=''">
+			where name like concat('%',#{mohu},'%')
+		</if>
+	</select>
+	<insert id="add" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert tb_goods values(0,#{name},#{chicun},#{danjia},#{shuliang},#{biaoqian})
+	</insert>
+	<insert id="addpin">
+		insert tb_brand values(#{id},#{name})
+	</insert>
+	<insert id="addzhou">
+		insert tb_goodskind values(#{id},#{name})
+	</insert>
+	<select id="show" resultType="com.bw.entity.Goods">
+		select * from tb_goods where id=#{id}
+	</select>
+	<select id="showpin" resultType="com.bw.entity.Goodskinds">
+		select * from tb_goodskind where id=#{id}
+	</select>
+	<select id="showzhou" resultType="com.bw.entity.Brand">
+		select * from tb_brand where id=#{id}
+	</select>
+	<update id="xiu">
+		update tb_goods set name=#{name},chicun=#{chichun},danjia=#{danjia},shuliang=#{shuliang},biaoqian=#{biaoqian} where id=#{id}
+	</update>
+	<update id="xiupin">
+		update tb_goodskind name=#{xiuname} where id=#{xiuid}
+	</update>
+	<update id="xiuzhou">
+		update tb_brand name=#{xiuname} where id=#{xiuid}
+	</update>
+	<delete id="shan">
+		delete from tb_goods where id=#{id}
+	</delete>
+	<delete id="shanpin">
+		delete from tb_goodskind where id=#{id}
+	</delete>
+	<delete id="shanzhou">
+		delete from tb_brand where id=#{id}
+	</delete>
+	<select id="huipin" resultType="com.bw.entity.Goodskinds">
+		selelct * from tb_goodskind
+	</select>
+	<select id="huizhou" resultType="com.bw.entity.Brand">
+		select * from tb_brand
+	</select>
+</mapper>
